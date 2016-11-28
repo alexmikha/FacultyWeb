@@ -36,13 +36,13 @@ public class ManagerServiceImpl implements ManagerService {
     private SubjectDao<Subject, Integer> subjectDao;
 
 
-//    public ManagerServiceImpl(GroupDao<Group, Integer> groupDao, StudentDao<Student, Integer> studentDao,
-//                              TeacherDao<Teacher, Integer> teacherDao, SubjectDao<Subject, Integer> subjectDao) {
-//        this.groupDao = groupDao;
-//        this.studentDao = studentDao;
-//        this.teacherDao = teacherDao;
-//        this.subjectDao = subjectDao;
-//    }
+    public ManagerServiceImpl(GroupDao<Group, Integer> groupDao, StudentDao<Student, Integer> studentDao,
+                              TeacherDao<Teacher, Integer> teacherDao, SubjectDao<Subject, Integer> subjectDao) {
+        this.groupDao = groupDao;
+        this.studentDao = studentDao;
+        this.teacherDao = teacherDao;
+        this.subjectDao = subjectDao;
+    }
 
     public ManagerServiceImpl() {
     }
@@ -105,7 +105,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     @Transactional
     public Student createStudent(Student newStudent) throws RegisterException {
-        return studentDao.insertEntity(newStudent);
+        return studentDao.addEntity(newStudent);
     }
 
 
@@ -138,7 +138,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     @Transactional
     public Group addGroup(Group group) {
-        return groupDao.insertEntity(group);
+        return groupDao.addEntity(group);
     }
 
     @Override
@@ -182,7 +182,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     @Transactional
     public Teacher addTeacher(Teacher teacher) {
-        return teacherDao.insertEntity(teacher);
+        return teacherDao.addEntity(teacher);
     }
 
     @Override
@@ -217,7 +217,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     @Transactional
     public Subject addSubject(Subject subject) {
-        return subjectDao.insertEntity(subject);
+        return subjectDao.addEntity(subject);
     }
 
     @Override

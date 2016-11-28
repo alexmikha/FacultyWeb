@@ -18,7 +18,7 @@
         </li>
         <li>
             <div class="column">
-                name : ${transfered.name} <%-- must be a pojo class (get methods)--%>
+                name : ${transfered.subjectName} <%-- must be a pojo class (get methods)--%>
             </div>
         </li>
     </ul>
