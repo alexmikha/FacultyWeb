@@ -1,18 +1,19 @@
 package faculty.dao;
 
-import faculty.exception.NoTeacherFoundException;
+import faculty.exception.NotFoundObjectException;
 import faculty.model.Teacher;
-
 
 import java.util.List;
 
-public interface TeacherDao  {
+public interface TeacherDao<E, K> extends GeneralDao<E, K> {
 
-	List<Teacher> getMaxExperienceTeacher(); //throws EntityNotFoundException;
+	List<Teacher> getMaxExperienceTeacher();
 
-	List<Teacher> getLessExperienceTeacher(); //throws EntityNotFoundException;
+	List<Teacher> getLessExperienceTeacher();
 
-	List<Teacher> getTeachersWithMoreYearsExperience(int experience); //throws EntityNotFoundException, InvalidNumberException;
+	List<Teacher> getTeachersWithMoreYearsExperience(int experience);
 
-	Teacher loginTeacher(String login, String pass) throws NoTeacherFoundException;
+	Teacher findLoginTeacher(String login) throws NotFoundObjectException;
+
+	Teacher getTeacherBySubjectName(String subjectName);
 }

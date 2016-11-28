@@ -22,7 +22,9 @@
 
     <filter-mapping>
         <filter-name>LoggingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/students/*</url-pattern>
+        <url-pattern>/teachers/*</url-pattern>
+        <url-pattern>/subjects/*</url-pattern>
     </filter-mapping>
 
 </web-app>

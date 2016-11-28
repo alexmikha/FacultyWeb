@@ -14,9 +14,9 @@
             <li>Input name:
                 <input name="name" type="text">
             </li>
-            <!--li>Input rank:
-                <input name="rank" type="text">
-            </li>-->
+            <li>Input group:
+                <input name="group" type="text">
+            </li>
             <li>Submit:
                 <input type="submit">
             </li>

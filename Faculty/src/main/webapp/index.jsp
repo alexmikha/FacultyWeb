@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: serhii
-  Date: 10.04.16
-  Time: 12:08
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ include file="WEB-INF/pages/include.jsp"%>
 <html>
 <head>
@@ -36,6 +30,7 @@
       <li><a href="register">Register</a></li>
     </ul>
 
+    <%--@elvariable id="inSystem" type=""--%>
     <c:if test="${!inSystem}">
     <form action="login" method="post">
       <ul>

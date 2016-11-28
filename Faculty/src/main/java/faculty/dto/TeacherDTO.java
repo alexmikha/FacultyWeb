@@ -1,6 +1,6 @@
 package faculty.dto;
 
-import faculty.model.Subject;
+import faculty.model.Teacher;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,16 +14,17 @@ public class TeacherDTO {
     private int id;
     private String teacherName;
     private int experience;
-    private Subject subject;
+    private String subjectName;
 
     public TeacherDTO() {
     }
 
-    public TeacherDTO(int id, String teacherName, int experience, Subject subject) {
-        this.id = id;
-        this.teacherName = teacherName;
-        this.experience = experience;
-        this.subject = subject;
+
+    public TeacherDTO(Teacher teacher) {
+        this.id = teacher.getId();
+        this.teacherName = teacher.getTeacherName();
+        this.experience = teacher.getExperience();
+        this.subjectName = teacher.getSubject().getSubjectName();
     }
 
     public TeacherDTO(int id, String teacherName, int experience, String subjectName) {
@@ -54,12 +55,12 @@ public class TeacherDTO {
         this.experience = experience;
     }
 
-    public Subject getSubject() {
-        return subject;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
     @Override
@@ -68,7 +69,7 @@ public class TeacherDTO {
                 "id=" + id +
                 ", teacherName='" + teacherName + '\'' +
                 ", experience=" + experience +
-                ", subject=" + subject.getSubjectName() +
+                ", subjectName='" + subjectName + '\'' +
                 '}';
     }
 }

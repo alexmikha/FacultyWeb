@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="group" type="{http://endpoint.soap.faculty/}group" minOccurs="0"/>
+ *         &lt;element name="groupName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
@@ -30,38 +30,38 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "studentDTO", propOrder = {
-    "group",
+    "groupName",
     "name"
 })
 public class StudentDTO {
 
-    protected Group group;
+    protected String groupName;
     protected String name;
     @XmlAttribute(name = "id", required = true)
     protected int id;
 
     /**
-     * Gets the value of the group property.
+     * Gets the value of the groupName property.
      * 
      * @return
      *     possible object is
-     *     {@link Group }
+     *     {@link String }
      *     
      */
-    public Group getGroup() {
-        return group;
+    public String getGroupName() {
+        return groupName;
     }
 
     /**
-     * Sets the value of the group property.
+     * Sets the value of the groupName property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Group }
+     *     {@link String }
      *     
      */
-    public void setGroup(Group value) {
-        this.group = value;
+    public void setGroupName(String value) {
+        this.groupName = value;
     }
 
     /**

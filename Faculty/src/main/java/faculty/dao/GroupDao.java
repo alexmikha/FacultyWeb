@@ -5,9 +5,9 @@ import faculty.model.Subject;
 
 import java.util.List;
 
-//import homeWork.facultyHibernate.exceptions.EntityNotFoundException;
 
-public interface GroupDao  {
+
+public interface GroupDao<E, K> extends GeneralDao<E, K>{
 
 	List<Group> getGroupsThatStudySubject(Subject subject);
 }

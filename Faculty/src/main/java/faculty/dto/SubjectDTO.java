@@ -1,5 +1,7 @@
 package faculty.dto;
 
+import faculty.model.Subject;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,10 +18,10 @@ public class SubjectDTO {
     public SubjectDTO() {
     }
 
-    public SubjectDTO(int id, String subjectName, String description) {
-        this.id = id;
-        this.subjectName = subjectName;
-        this.description = description;
+    public SubjectDTO(Subject subject) {
+        this.id = subject.getId();
+        this.subjectName = subject.getSubjectName();
+        this.description = subject.getDescription();
     }
 
     @XmlAttribute(name = "id")

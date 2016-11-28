@@ -1,12 +1,12 @@
 package faculty.servlet;
 
+import faculty.exception.RegisterException;
 import faculty.model.Group;
 import faculty.model.Student;
 import faculty.service.ManagerService;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +26,7 @@ public class RegisterServlet extends HttpServlet {
     private ManagerService managerService;
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init() throws ServletException {
         applicationContext =
                 (ApplicationContext) getServletContext().getAttribute("app-faculty-context");
         managerService = applicationContext.getBean(ManagerService.class);
@@ -47,13 +47,17 @@ public class RegisterServlet extends HttpServlet {
         if (name == null || groupStr == null) {
             // redirect
             resp.sendRedirect("http/error.jsp");
-            //current localhost:8080/testio/register
-            // Absolute path  = /http/error.jsp localhost:8080/http/error
-            // Relative path = http/error.jsp localhost:8080/testio/http/error.jsp
+            // Absolute path  = /http/error.jsp localhost:9999/http/error
+            // Relative path = http/error.jsp localhost:9999/faculty/http/error.jsp
         } else {
-            Student student = new Student(name, new Group(""));
+            Student student = new Student(name, new Group(groupStr));
 
-            Student created = managerService.createStudent(student);
+            Student created = null;
+            try {
+                created = managerService.createStudent(student);
+            } catch (RegisterException e) {
+                e.printStackTrace();
+            }
             req.setAttribute("student", created);
             req.getRequestDispatcher("/WEB-INF/pages/student-info.jsp").forward(req, resp);
         }

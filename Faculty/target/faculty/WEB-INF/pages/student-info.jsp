@@ -18,12 +18,13 @@
         </li>
         <li>
             <div class="column">
-                name : ${transfered.name} <%-- must be a pojo class (get methods)--%>
+                name : ${transfered.studentName}
             </div>
         </li>
         <li>
             <div class="column">
-                group : ${transfered.group}
+                group : ${transfered.group.groupName}
+
             </div>
         </li>
     </ul>

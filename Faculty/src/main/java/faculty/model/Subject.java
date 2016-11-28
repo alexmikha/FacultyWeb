@@ -28,7 +28,7 @@ public class Subject extends IdEntity {
     @OneToOne(mappedBy = "subject")
     private Teacher teacher;
 
-    public Subject(String subjectName, String description) {
+    public Subject(String subjectName) {
         this.subjectName = subjectName;
         this.description = description;
 

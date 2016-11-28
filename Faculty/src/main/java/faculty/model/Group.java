@@ -18,7 +18,7 @@ public class Group extends IdEntity {
     private String groupName;
 
     @OneToMany(mappedBy = "group",  fetch = FetchType.LAZY, cascade ={CascadeType.PERSIST, CascadeType.MERGE}) //cascade = CascadeType.ALL
-    private Set<Student> studentSet = new HashSet<>();
+    public Set<Student> studentSet = new HashSet<>();
 
     @ManyToMany (cascade = CascadeType.ALL)
     @JoinTable(name = "study",

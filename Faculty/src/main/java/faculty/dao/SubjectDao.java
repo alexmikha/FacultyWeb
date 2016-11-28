@@ -6,8 +6,8 @@ import java.util.List;
 
 
 
-public interface SubjectDao {
+public interface SubjectDao<E, K> extends GeneralDao<E, K>{
 
-	List<Subject> getHumanitarSubjects(); // throws EntityNotFoundException;
+	List<Subject> getHumanitarSubjects();
 
 }

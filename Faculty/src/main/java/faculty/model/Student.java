@@ -11,13 +11,15 @@ import java.util.List;
 @NamedQuery(name = "Student.getAll", query = "SELECT s FROM Student s")
 public class Student extends IdEntity {
 
-    @Column(name = "name", length = (20))
+    @Column(name = "name",nullable = false,length = 20, unique = true)
     private String studentName;
-
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE} )// cascade = {CascadeType.ALL}
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private Group group;
+
+//    @Transient // no mapping
+//    private String tempAccess;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Mark> markList ;
@@ -26,9 +28,14 @@ public class Student extends IdEntity {
     public Student(String studentName, Group group) {
         this.studentName = studentName;
         this.group = group;
+
     }
 
     public Student() {
+    }
+
+    public Student(int id, String name, String groupName) {
+
     }
 
 
@@ -60,7 +67,6 @@ public class Student extends IdEntity {
         this.markList = markList;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,12 +89,10 @@ public class Student extends IdEntity {
     }
 
     @Override
-
     public String toString() {
         return "Student{" +
-                "id=" + getId() +
-                ", studentName='" + studentName + '\'' +
-                ", group=" + group +
+                "studentName='" + studentName + '\'' +
+                ", group=" + group.getGroupName() +
                 '}';
     }
 }

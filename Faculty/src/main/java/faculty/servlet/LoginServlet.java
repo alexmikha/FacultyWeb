@@ -1,6 +1,6 @@
 package faculty.servlet;
 
-import faculty.exception.NoStudentFoundException;
+import faculty.exception.NotFoundObjectException;
 import faculty.model.Student;
 import faculty.service.ManagerService;
 import org.apache.log4j.Logger;
@@ -37,17 +37,19 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String name = req.getParameter("name");
+      //  String name = req.getParameter("name");
 
         try {
-            Student found = managerService.loginStudent(name);
+        //    HttpSession session = req.getSession();
+            String name = req.getParameter("name");
+            Student found = managerService.login(name);
 
-            HttpSession session = req.getSession(true);
+            HttpSession session = req.getSession();
             session.setAttribute("inSystem", true);
             session.setAttribute("currentUserName",found.getStudentName());
 
             resp.sendRedirect("index.jsp");
-        } catch (NoStudentFoundException e) {
+        } catch (NotFoundObjectException e) {
             req.setAttribute("errorTitle", "Login Error");
             req.setAttribute("errorMessage", "invalid name");
             req.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(req, resp);

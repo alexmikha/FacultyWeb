@@ -1,11 +1,10 @@
 package faculty.dao.implementation;
 
-import faculty.dao.GeneralDao;
 import faculty.dao.TeacherDao;
-import faculty.exception.NoTeacherFoundException;
+import faculty.exception.NotFoundObjectException;
 import faculty.model.Teacher;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -16,52 +15,57 @@ import java.util.List;
 /**
  * Created by mi on 08.10.2016.
  */
-@Repository
+
 @Component
-public class TeacherDaoImpl implements GeneralDao<Teacher, Integer>, TeacherDao {
+public class TeacherDaoImpl implements TeacherDao<Teacher, Integer> {
 
     @PersistenceContext
     private EntityManager manager;
-
 
     public TeacherDaoImpl() {
 
     }
 
     @Override
-    public List<Teacher> getAll(){
+    @Transactional
+    public List<Teacher> getAll() {
         TypedQuery<Teacher> namedQuery = manager.createNamedQuery("Teacher.getAll", Teacher.class);
         return namedQuery.getResultList();
     }
 
     @Override
-    public Teacher insertEntity(Teacher teacher){
+    @Transactional
+    public Teacher addEntity(Teacher teacher) {
         manager.persist(teacher);
         return teacher;
     }
 
     @Override
-    public boolean deleteEntity(Teacher teacher){
+    @Transactional
+    public boolean deleteEntity(Teacher teacher) {
         manager.remove(manager.contains(teacher));
         return true;
     }
 
 
     @Override
-    public Teacher updateEntity(Teacher teacher){
-        if(getEntityById(teacher.getId()) != null) {
+    @Transactional
+    public Teacher updateEntity(Teacher teacher) {
+        if (getEntityById(teacher.getId()) != null) {
             manager.merge(teacher);
         }
         return teacher;
     }
 
     @Override
-    public Teacher getEntityById(Integer id){
-
+    @Transactional
+    public Teacher getEntityById(Integer id) {
         return manager.find(Teacher.class, id);
     }
 
+
     @Override
+    @Transactional
     public List<Teacher> getMaxExperienceTeacher() {
         List<Teacher> teachers = manager.createQuery
                 ("SELECT t FROM Teacher t WHERE t.experience = (SELECT MAX(tt.experience) FROM Teacher tt)").getResultList();
@@ -70,11 +74,11 @@ public class TeacherDaoImpl implements GeneralDao<Teacher, Integer>, TeacherDao 
         } else {
             throw new EntityNotFoundException("Teacher have not max experience");
         }
-
     }
 
 
     @Override
+    //   @Transactional
     public List<Teacher> getLessExperienceTeacher() {
         List<Teacher> teachers = manager.createQuery
                 ("SELECT t FROM Teacher t WHERE t.experience = (SELECT MIN(tt.experience) FROM Teacher tt)").getResultList();
@@ -86,25 +90,35 @@ public class TeacherDaoImpl implements GeneralDao<Teacher, Integer>, TeacherDao 
     }
 
     @Override
+    //  @Transactional
     public List<Teacher> getTeachersWithMoreYearsExperience(int experience) {
         List<Teacher> teachers = manager.createQuery("SELECT t FROM Teacher t WHERE t.experience > :experience").
                 setParameter("experience", experience).getResultList();
         if (teachers != null) {
             return teachers;
         } else {
-            throw new EntityNotFoundException("No teachers taught for more than " + experience  + " years");
+            throw new EntityNotFoundException("No teachers taught for more than " + experience + " years");
         }
     }
 
     @Override
-    public Teacher loginTeacher(String login, String pass) throws NoTeacherFoundException{
-
+    public Teacher findLoginTeacher(String login) throws NotFoundObjectException {
         Teacher teacher = null;
-        if (login.equals(teacher.getTeacherName()) && pass.equals("root")){
+        if (login.equals(teacher.getTeacherName())) {
             return teacher;
         }
         if (teacher.getTeacherName() == null)
-            throw new NoTeacherFoundException("no teacher with login " + login);
+            try {
+                throw new NotFoundObjectException("no teacher with login " + login);
+            } catch (NotFoundObjectException e) {
+                e.printStackTrace();
+            }
+        return null;
+    }
+
+
+    @Override
+    public Teacher getTeacherBySubjectName(String subjectName) {
         return null;
     }
 }

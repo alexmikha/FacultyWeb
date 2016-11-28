@@ -1,5 +1,8 @@
 package faculty.dto;
 
+import faculty.model.Group;
+
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -9,23 +12,39 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Group")
 public class GroupDTO {
 
-    private String name;
+    private int id;
+    private String groupName;
     private StudentList studentsList;
 
     public GroupDTO() {
     }
 
-    public GroupDTO(String name, StudentList studentsList) {
-        this.name = name;
+    public GroupDTO(String groupName, StudentList studentsList) {
+        this.groupName = groupName;
         this.studentsList = studentsList;
     }
 
-    public String getName() {
-        return name;
+    public GroupDTO(Group group) {
+        this.id = group.getId();
+        this.groupName = group.getGroupName();
+        this.studentsList = (StudentList) group.getStudentSet();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @XmlAttribute(name = "id")
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public StudentList getStudentsList() {
@@ -34,5 +53,14 @@ public class GroupDTO {
 
     public void setStudentsList(StudentList studentsList) {
         this.studentsList = studentsList;
+    }
+
+    @Override
+    public String toString() {
+        return "GroupDTO{" +
+                "id=" + id +
+                ", groupName='" + groupName + '\'' +
+                ", studentsList=" + studentsList +
+                '}';
     }
 }

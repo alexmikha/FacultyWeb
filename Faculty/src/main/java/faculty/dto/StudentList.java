@@ -17,7 +17,7 @@ public class StudentList extends StudentDTO {
     public StudentList() {
     }
 
-    @XmlElement(name = "students")
+    @XmlElement(name = "student")
     public List<StudentDTO> getDtoList() {
         return dtoList;
     }

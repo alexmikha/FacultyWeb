@@ -13,20 +13,26 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
+    <tx:annotation-driven />
+    <aop:aspectj-autoproxy/>
     <context:annotation-config/>
+    <tx:annotation-driven transaction-manager="transactionManager"
+                          proxy-target-class="true" />
     <context:component-scan base-package="faculty"/>
     <!--context:component-scan base-package="faculty.dao"/>
     <context:component-scan base-package="faculty.model"/>
     <context:component-scan base-package="faculty.service"/>-->
-    <aop:aspectj-autoproxy/>
+
 
     <context:property-placeholder location="db.properties"/>
 
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <!--tx:annotation-driven transaction-manager="transactionManager" />-->
 
-    <tx:annotation-driven proxy-target-class="false" />
 
-    <bean id="myAspect" class="faculty.aspect.MyAspect"/>
+    <!--tx:annotation-driven proxy-target-class="false" />-->
+
+    <!--bean id="myAspect" class="faculty.aspect.MyAspect"/>-->
+
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${db.driver}"/>
@@ -37,7 +43,7 @@
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="faculty"></property>
+        <property name="packagesToScan" value="faculty.model"></property>
         <!--property name="packagesToScan" >
 
         <list>
@@ -63,7 +69,7 @@
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
-    <bean id="gson" class="com.google.gson.Gson"/>
+    <!--bean id="gson" class="com.google.gson.Gson"/>-->
 
 
 </beans>

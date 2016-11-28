@@ -1,14 +1,16 @@
 package faculty.dao;
 
-import faculty.exception.NoStudentFoundException;
-import faculty.model.Group;
+import faculty.exception.NotFoundObjectException;
 import faculty.model.Student;
 
 import java.util.List;
 
-public interface StudentDao  {
+public interface StudentDao<E, K> extends GeneralDao<E, K> {
 
-	List<Student> getListOfStudentsInGroup(Group group); //throws EntityNotFoundException;
+    List getListOfStudentsInGroup(String group);
 
-	Student loginStudent(String login) throws NoStudentFoundException;
+   Student findLoginStudent(String login) throws NotFoundObjectException;
+
+    Student getStudentByName(String name) throws NotFoundObjectException;
+
 }
